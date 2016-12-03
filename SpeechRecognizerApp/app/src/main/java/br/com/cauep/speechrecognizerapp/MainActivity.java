@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity
 
     // Resultado da transcrição
     String resultText = "";
+    StringBuilder transcriptionText = new StringBuilder();
 
     // Lista de transcrições
     ArrayList<String> listaTranscricoes = new ArrayList<>();
@@ -67,14 +68,6 @@ public class MainActivity extends AppCompatActivity
         CheckVoiceRecognition();
         Log.d("SPEECH", "speech recognition available: " + SpeechRecognizer.isRecognitionAvailable(this));
 
-        if(!isRecording){
-
-        }
-
-
-        //setSpeechRecognizer();
-
-        //comecarOuvir();
 
     }
 
@@ -118,10 +111,13 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void deleteSpeechRecognizer(){
+        if(speechRecognizer != null){
+            speechRecognizer.cancel();
+            speechRecognizer.stopListening();
+            speechRecognizer.destroy();
+        }
         Log.d("setSpeechRecognizer", "destruindo recognizer existente");
-        speechRecognizer.cancel();
-        speechRecognizer.stopListening();
-        speechRecognizer.destroy();
+
     }
 
     // comeca a gravacao
@@ -164,23 +160,9 @@ public class MainActivity extends AppCompatActivity
         isPaused = false;
         isRecording = false;
         mTvPartialRecognition.setText(R.string.txt_ended);
+        mTvPartialRecognition.append("\n" + transcriptionText);
     }
 
-    public void comecarOuvir(){
-        Log.d(TAG, "Criação do recognizerIntent");
-        Log.d("SPEECH", "speech recognition available: " + SpeechRecognizer.isRecognitionAvailable(this));
-        //Intent recognizerIntent = RecognizerIntent.getVoiceDetailsIntent(getApplicationContext());
-        recognizerIntent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-        //recognizerIntent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE, getClass().getPackage().getName());
-        recognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);//LANGUAGE_MODEL_WEB_SEARCH);
-        recognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
-        recognizerIntent.putExtra(RecognizerIntent.EXTRA_PARTIAL_RESULTS, true);    // get partial results
-        recognizerIntent.putExtra(RecognizerIntent.EXTRA_MAX_RESULTS,
-                getString(R.string.speech_length));
-
-        Log.d(TAG, "Criação do SpeechRecognizer");
-        speechRecognizer.startListening(recognizerIntent);
-    }
 
 /*
     @Override
@@ -303,6 +285,7 @@ public class MainActivity extends AppCompatActivity
         speechRecognizer.startListening(recognizerIntent);
         Log.d("SPEECH", "Result Text final: " + resultText);
         mTvPartialRecognition.append(resultText +" | ");
+        transcriptionText.append(resultText);
         ArrayList<String> textMatchlist = bundle.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
 
 /*
@@ -331,6 +314,8 @@ public class MainActivity extends AppCompatActivity
             Log.d("SPEECH", "onPartialResults: size " + partialResults.size());
             List<String> heard = partialResults.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
             resultText = heard.get(0);
+
+            //mTvPartialRecognition.append(resultText +" | ");
             Log.d("received Results: ", resultText);
         }
 
@@ -354,5 +339,12 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onEvent(int i, Bundle bundle) {
         Log.d("SPEECH", "onEvent");
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        deleteSpeechRecognizer();
     }
 }
