@@ -1,4 +1,4 @@
-package br.com.cauep.testespeech;
+package br.com.cauep.speechrecognizerapp;
 
 import android.speech.RecognitionListener;
 import android.speech.RecognitionService;
