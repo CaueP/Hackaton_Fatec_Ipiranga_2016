@@ -35,7 +35,7 @@
         android:orientation="horizontal">
 
 
-        <Button
+        <ImageButton
             android:id="@+id/btStart"
             android:onClick="start"
             android:padding="@dimen/padding_medium"
@@ -46,6 +46,7 @@
             android:layout_height="match_parent"
             android:contentDescription="@string/contentBtStart"
             style="?android:attr/buttonBarButtonStyle"
+            icon
             />
 
 
