@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:id="@+id/activity_main"
+    tools:context="br.com.cauep.speechrecognizerapp.MainActivity">
+
+    <Button
+        android:id="@+id/btSpeak"
+        android:onClick="speak"
+        android:padding="@dimen/padding_medium"
+        android:text="@string/btSpeak"
+        tools:context=".VoiceRecognitionActivity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <Spinner
+        android:id="@+id/sNoOfMatches"
+        android:entries="@array/saNoOfMatches"
+        android:prompt="@string/sNoOfMatches"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></Spinner>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:id="@+id/tvPartialRecognition"/>
+
+
+
+
+
+</LinearLayout>
+
