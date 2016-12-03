@@ -67,8 +67,6 @@ public class MainActivity extends AppCompatActivity
 
         CheckVoiceRecognition();
         Log.d("SPEECH", "speech recognition available: " + SpeechRecognizer.isRecognitionAvailable(this));
-
-
     }
 
 
@@ -94,6 +92,7 @@ public class MainActivity extends AppCompatActivity
         recognizerIntent.putExtra(RecognizerIntent.EXTRA_PARTIAL_RESULTS, true);    // get partial results
         recognizerIntent.putExtra(RecognizerIntent.EXTRA_MAX_RESULTS,
                 getString(R.string.speech_length));
+        //recognizerIntent.putExtra(RecognizerIntent.EXTRA_SPEECH_INPUT_MINIMUM_LENGTH_MILLIS, 500);
     }
 
     public void setSpeechRecognizer(){
@@ -127,11 +126,11 @@ public class MainActivity extends AppCompatActivity
             deleteSpeechRecognizer();
             showToastMessage(getString(R.string.txt_paused));
             Log.d(TAG, "Listening Paused");
-            //mTvPartialRecognition.setText(R.string.txt_paused);
+
             isPaused = true;
             isRecording = false;
         } else if(isPaused){ // se estiver pausado, volta a gravar
-            //mTvPartialRecognition.setText(R.string.txt_listening);
+            mTvPartialRecognition.setText("");
             setSpeechRecognizer();
             speechRecognizer.startListening(recognizerIntent);
             showToastMessage(getString(R.string.txt_recording));
@@ -140,7 +139,7 @@ public class MainActivity extends AppCompatActivity
             isRecording = true;
         } else {    // Condição se não está gravando nem pausado, ou seja, uma nova gravação
             // Reinicia a string que armazenará a transcrição
-            //mTvPartialRecognition.setText(R.string.txt_listening);
+            mTvPartialRecognition.setText("");
             setSpeechRecognizer();
             Log.d(TAG, "Listening started");
             speechRecognizer.startListening(recognizerIntent);
@@ -156,51 +155,9 @@ public class MainActivity extends AppCompatActivity
         isPaused = false;
         isRecording = false;
         //mTvPartialRecognition.setText(R.string.txt_ended);
+        mTvPartialRecognition.setText("");
         mTvPartialRecognition.append("\n" + transcriptionText);
     }
-
-
-/*
-    @Override
-    protected void onActivityResult(int requestCode,int resultCode,Intent data){
-        if (resultCode == RESULT_OK){
-            ArrayList<String> textMatchlist = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-
-            if (!textMatchlist.isEmpty()){
-                Log.d("MainActvity","Tamanho da textMatchlist: " + textMatchlist.size());
-                if (textMatchlist.get(0).contains("search")){
-                    String searchQuery = textMatchlist.get(0).replace("search"," ");
-                    Intent search = new Intent(Intent.ACTION_WEB_SEARCH);
-                    search.putExtra(SearchManager.QUERY,searchQuery);
-                    startActivity(search);
-                }
-                else {
-                    mlvTextMatches.setAdapter(new ArrayAdapter<String>(this,android.R.layout.simple_expandable_list_item_1,textMatchlist));
-
-
-                }
-            }
-        }
-        else if (resultCode == RecognizerIntent.RESULT_AUDIO_ERROR){
-            showToastMessage("Audio Error");
-
-        }
-        else if ((resultCode == RecognizerIntent.RESULT_CLIENT_ERROR)){
-            showToastMessage("Client Error");
-
-        }
-        else if (resultCode == RecognizerIntent.RESULT_NETWORK_ERROR){
-            showToastMessage("Network Error");
-        }
-        else if (resultCode == RecognizerIntent.RESULT_NO_MATCH){
-            showToastMessage("No Match");
-        }
-        else if (resultCode == RecognizerIntent.RESULT_SERVER_ERROR){
-            showToastMessage("Server Error");
-        }
-        super.onActivityResult(requestCode, resultCode, data);
-
-    }*/
 
 
     void  showToastMessage(String message){
@@ -276,23 +233,10 @@ public class MainActivity extends AppCompatActivity
 
         speechRecognizer.startListening(recognizerIntent);
         Log.d("SPEECH", "Result Text final: " + resultText);
-        mTvPartialRecognition.append(resultText +" | ");
-        transcriptionText.append(resultText);
+        mTvPartialRecognition.append(resultText + " | ");
+        transcriptionText.append("\n" + resultText);
         ArrayList<String> textMatchlist = bundle.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
-
-/*
-            if (!textMatchlist.isEmpty()){
-                Log.d("MainActvity","Tamanho da textMatchlist: " + textMatchlist.size());
-                if (textMatchlist.get(0).contains("search")){
-                    String searchQuery = textMatchlist.get(0).replace("search"," ");
-                }
-                else {
-                    mlvTextMatches.setAdapter(new ArrayAdapter<String>(this,android.R.layout.simple_expandable_list_item_1,textMatchlist));
-
-                }
-            }*/
     }
-
 
 
     @Override
@@ -311,19 +255,6 @@ public class MainActivity extends AppCompatActivity
             Log.d("received Results: ", resultText);
         }
 
-/*
-
-        ArrayList<String> partialResultsList = partialResults.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
-        Log.d("MainActivity", "onPartialResults: partialResult Array: ");
-        if (!partialResultsList.isEmpty()){
-            for (String resultadoParcial: partialResultsList) {
-                Log.d("MainActivity", resultadoParcial);
-            }
-        }
-        else{
-            Log.d("MainActivity", "onPartialResults: partialResult Array is Empty");
-        }
-*/
 
 
     }
