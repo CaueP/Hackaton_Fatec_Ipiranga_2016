@@ -14,5 +14,7 @@
     <string name="txt_recording">Ouvindo...</string>
     <string name="txt_new_recording">Iniciando uma nova transcrição...</string>
     <string name="txt_ended">Transcrição finalizada</string>
+    <string name="save_file_succeed">Arquivo salvo com sucesso</string>
+    <string name="save_file_failed">Falha ao criar arquivo</string>
 
 </resources>

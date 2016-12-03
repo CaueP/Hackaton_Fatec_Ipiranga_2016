@@ -1,5 +1,6 @@
 package br.com.cauep.speechrecognizerapp;
 
+import android.os.Environment;
 import android.speech.RecognitionListener;
 import android.speech.SpeechRecognizer;
 import android.support.v7.app.AppCompatActivity;
@@ -17,9 +18,18 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity
         implements android.speech.RecognitionListener
@@ -49,6 +59,11 @@ public class MainActivity extends AppCompatActivity
     boolean isRecording = false;
     boolean isPaused = false;
 
+    // Variaveis de controle para gravacao do arquivo
+    private File diretorio;
+    private String nomeDiretorio;
+    private String diretorioApp;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +74,7 @@ public class MainActivity extends AppCompatActivity
         mbtEnd = (Button) findViewById(R.id.btEnd);
 
         mTvPartialRecognition = (TextView) findViewById(R.id.tvPartialRecognition);
-
+        nomeDiretorio = getString(R.string.app_name);
         setRecognizerIntent();
 
         isRecording = false;
@@ -157,8 +172,53 @@ public class MainActivity extends AppCompatActivity
         //mTvPartialRecognition.setText(R.string.txt_ended);
         mTvPartialRecognition.setText("");
         mTvPartialRecognition.append("\n" + transcriptionText);
+        writeFile();
     }
 
+    public void writeFile() {
+
+        // criar o diretorio
+        diretorioApp = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
+                + "/"+nomeDiretorio+"/";
+        diretorio = new File(diretorioApp);
+        diretorio.mkdirs();
+
+        //Quando o File() tem um parâmetro ele cria um diretório.
+        //Quando tem dois ele cria um arquivo no diretório onde é informado.
+            String nomeArquivo = String.valueOf(new Date().getTime()) + ".txt";
+
+            File fileExt = new File(diretorioApp, nomeArquivo);
+
+
+
+
+
+        try {
+            //Cria o arquivo
+            fileExt.getParentFile().mkdirs();
+
+            //Abre o arquivo
+            FileOutputStream fosExt = null;
+
+            fosExt = new FileOutputStream(fileExt);
+
+            Writer out = new BufferedWriter(new OutputStreamWriter(
+                    fosExt, "UTF-8"));
+
+            out.write(transcriptionText.toString());  //Escreve no arquivo
+
+
+            showToastMessage(getString(R.string.save_file_succeed));
+            transcriptionText = new StringBuilder();
+            fosExt.close(); // fecha arquivo
+        } catch (FileNotFoundException e) {
+            showToastMessage(getString(R.string.save_file_failed));
+            e.printStackTrace();
+        } catch (IOException e) {
+            showToastMessage(getString(R.string.save_file_failed));
+            e.printStackTrace();
+        }
+    }
 
     void  showToastMessage(String message){
         Toast.makeText(this,message,Toast.LENGTH_LONG).show();
@@ -233,7 +293,7 @@ public class MainActivity extends AppCompatActivity
 
         speechRecognizer.startListening(recognizerIntent);
         Log.d("SPEECH", "Result Text final: " + resultText);
-        mTvPartialRecognition.append(resultText + " | ");
+        mTvPartialRecognition.append(resultText + "\n");
         transcriptionText.append("\n" + resultText);
         ArrayList<String> textMatchlist = bundle.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
     }
