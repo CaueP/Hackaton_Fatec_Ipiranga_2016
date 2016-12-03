@@ -5,6 +5,10 @@
     <string name="action_settings">Settings</string>
 
     <string name="btStart">Start</string>
+    <string name="contentTxtHeader">Titulo Fala Reconhecida</string>
+    <string name="contentBtStart">Botão para iniciar a gravação</string>
+    <string name="contentBtPause">Botão para pausar a gravação</string>
+    <string name="contentBtEnd">Botão para encerrar a gravação</string>
     <string name="btPause">Pause</string>
     <string name="btEnd">End</string>
     <string name="tvTextMatches">Text Matches</string>

@@ -18,6 +18,7 @@
         android:layout_marginTop="40dp"
         android:text="@string/txtHeader"
         android:textAppearance="?android:attr/textAppearanceMedium"
+        android:contentDescription="@string/contentTxtHeader"
         />
     <TextView
         android:layout_width="match_parent"
@@ -30,7 +31,7 @@
         android:baselineAligned="true"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-
+        style="?android:attr/buttonBarStyle"
         android:orientation="horizontal">
 
 
@@ -42,7 +43,10 @@
             tools:context=".VoiceRecognitionActivity"
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:layout_height="wrap_content" />
+            android:layout_height="match_parent"
+            android:contentDescription="@string/contentBtStart"
+            style="?android:attr/buttonBarButtonStyle"
+            />
 
         <Button
             android:id="@+id/btPause"
@@ -52,7 +56,10 @@
             tools:context=".VoiceRecognitionActivity"
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:layout_height="wrap_content" />
+            android:layout_height="match_parent"
+            android:contentDescription="@string/contentBtPause"
+            style="?android:attr/buttonBarButtonStyle"
+            />
 
         <Button
             android:id="@+id/btEnd"
@@ -62,7 +69,11 @@
             tools:context=".VoiceRecognitionActivity"
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:layout_height="wrap_content" />
+            android:layout_height="match_parent"
+            android:contentDescription="@string/contentBtEnd"
+            style="?android:attr/buttonBarButtonStyle"
+            />
+
     </LinearLayout>
 
 </LinearLayout>
