@@ -1,12 +1,10 @@
 package br.com.cauep.speechrecognizerapp;
 
 import android.speech.RecognitionListener;
-import android.speech.RecognitionService;
 import android.speech.SpeechRecognizer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import android.app.SearchManager;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
@@ -15,12 +13,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ListView;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,71 +26,132 @@ public class MainActivity extends AppCompatActivity
 {
 
     //private  static  final int VOICE_RECOGNITION_REQUEST_CODE = 1001;
-    //private EditText metTextHint;
-    //private ListView mlvTextMatches;
-    private TextView mTvPartialRecognition;
-    //private Spinner msTextMatches;
-    private Button mbtSpeak;
-
-    //Speech recognizer
-    private RecognitionListener listener = null;
-    SpeechRecognizer recognizer = null;
-    String resultText = "";
 
     String TAG = "MainActivity";
 
+    private TextView mTvPartialRecognition;
+    private Button mbtStart;
+    private Button mbtEnd;
+
+    //Speech speechRecognizer
+    private RecognitionListener listener = null;
+    SpeechRecognizer speechRecognizer = null;
     Intent recognizerIntent;
+
+    // Resultado da transcrição
+    String resultText = "";
+
+    // Lista de transcrições
+    ArrayList<String> listaTranscricoes = new ArrayList<>();
+
+    // Controllers
+    boolean isRecording = false;
+    boolean isPaused = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //metTextHint = (EditText) findViewById(R.id.etTextHint);
-        //mlvTextMatches = (ListView) findViewById(R.id.lvTextMatches);
-        //msTextMatches = (Spinner) findViewById(R.id.sNoOfMatches);
-        mbtSpeak = (Button) findViewById(R.id.btStart);
-        mTvPartialRecognition = (TextView) findViewById(R.id.tvPartialRecognition);
-        CheckVoiceRecognition();
-        mTvPartialRecognition.setText("Ouvindo: ");
+        mbtStart = (Button) findViewById(R.id.btStart);
+        mbtEnd = (Button) findViewById(R.id.btEnd);
 
+        mTvPartialRecognition = (TextView) findViewById(R.id.tvPartialRecognition);
+
+        setRecognizerIntent();
+
+        isRecording = false;
+        isPaused = false;
+
+        CheckVoiceRecognition();
         Log.d("SPEECH", "speech recognition available: " + SpeechRecognizer.isRecognitionAvailable(this));
 
+        if(!isRecording){
 
-        // criação do recognizer speech
-        recognizer = SpeechRecognizer.createSpeechRecognizer(this);
-        if(listener == null) Log.d(TAG, "Listener NULL");
-        recognizer.setRecognitionListener(this);
+        }
 
-        comecarOuvir();
+
+        //setSpeechRecognizer();
+
+        //comecarOuvir();
 
     }
+
+
 
     public  void  CheckVoiceRecognition(){
         PackageManager pm = getPackageManager();
         List<ResolveInfo> activities = pm.queryIntentActivities(new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH),0);
         if (activities.size()==0){
-            mbtSpeak.setEnabled(false);
-            Toast.makeText(this,"Voice recognizer not present",Toast.LENGTH_LONG).show();
+            mbtStart.setEnabled(false);
+            Toast.makeText(this,"Voice speechRecognizer not present",Toast.LENGTH_LONG).show();
         }
     }
 
-    public void start(View view){
-        /*Intent recognizerIntent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-        recognizerIntent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE,getClass().getPackage().getName());
-        recognizerIntent.putExtra(RecognizerIntent.EXTRA_PROMPT,metTextHint.getText().toString());
-        recognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,RecognizerIntent.LANGUAGE_MODEL_WEB_SEARCH);
-        if (msTextMatches.getSelectedItemPosition()== AdapterView.INVALID_POSITION){
-            Toast.makeText(this,"Please select No. of Matches from Spinner",Toast.LENGTH_LONG).show();
-            return;
-        }
-        int noOfMatches = Integer.parseInt(msTextMatches.getSelectedItem().toString());
-        Log.d("MainActvity","noOfMatches: " + msTextMatches.getSelectedItem().toString());
+    // configura as especificacoes do Intent
+    public void setRecognizerIntent(){
+        Log.d(TAG, "Criação do recognizerIntent");
+        Log.d("SPEECH", "speech recognition available: " + SpeechRecognizer.isRecognitionAvailable(this));
+        //Intent recognizerIntent = RecognizerIntent.getVoiceDetailsIntent(getApplicationContext());
+        recognizerIntent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+        //recognizerIntent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE, getClass().getPackage().getName());
+        recognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);//LANGUAGE_MODEL_WEB_SEARCH);
+        recognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
+        recognizerIntent.putExtra(RecognizerIntent.EXTRA_PARTIAL_RESULTS, true);    // get partial results
+        recognizerIntent.putExtra(RecognizerIntent.EXTRA_MAX_RESULTS,
+                getString(R.string.speech_length));
+    }
 
-        recognizerIntent.putExtra(RecognizerIntent.EXTRA_MAX_RESULTS,noOfMatches);
-        startActivityForResult(recognizerIntent,VOICE_RECOGNITION_REQUEST_CODE);*/
-        mTvPartialRecognition.setText("Ouvindo: ");
-        //startActivityForResult(recognizerIntent,VOICE_RECOGNITION_REQUEST_CODE);
+    public void setSpeechRecognizer(){
+        Log.d("setSpeechRecognizer", "setSpeechRecognizer Iniciou");
+        if(speechRecognizer != null){ // verifica se o speechRecognizer nao é nulo, para para-lo antes de instanciar
+            deleteSpeechRecognizer();
+        } else
+            Log.d("setSpeechRecognizer", "Listener is NULL");
+
+        Log.d("setSpeechRecognizer", "criando um novo recognizer");
+
+        // Criação do speechRecognizer speech
+        speechRecognizer = SpeechRecognizer.createSpeechRecognizer(this);   // cria um novo Recognizer
+        speechRecognizer.setRecognitionListener(this);  // seta o Listener
+    }
+
+    public void deleteSpeechRecognizer(){
+        Log.d("setSpeechRecognizer", "destruindo recognizer existente");
+        speechRecognizer.cancel();
+        speechRecognizer.stopListening();
+        speechRecognizer.destroy();
+    }
+
+    // comeca a gravacao
+    public void start(View view){
+
+        if(isRecording){    // se estiver gravando, pausa
+            deleteSpeechRecognizer();
+            showToastMessage(getString(R.string.txt_paused));
+            Log.d(TAG, "Listening Paused");
+            mTvPartialRecognition.setText(R.string.txt_paused);
+            isPaused = true;
+            isRecording = false;
+        } else if(isPaused){ // se estiver pausado, volta a gravar
+            mTvPartialRecognition.setText(R.string.txt_listening);
+            setSpeechRecognizer();
+            speechRecognizer.startListening(recognizerIntent);
+            showToastMessage(getString(R.string.txt_recording));
+            Log.d(TAG, "Listening Resumed");
+            isPaused = false;
+            isRecording = true;
+        } else {    // Condição se não está gravando nem pausado, ou seja, uma nova gravação
+            // Reinicia a string que armazenará a transcrição
+            mTvPartialRecognition.setText(R.string.txt_listening);
+            setSpeechRecognizer();
+            Log.d(TAG, "Listening started");
+            speechRecognizer.startListening(recognizerIntent);
+            showToastMessage(getString(R.string.txt_new_recording));
+            isPaused = false;
+            isRecording = true;
+        }
     }
 
     public void pause(View view){
@@ -105,7 +159,11 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void end(View view){
-
+        Log.d("end", "Stop recording requested");
+        deleteSpeechRecognizer();
+        isPaused = false;
+        isRecording = false;
+        mTvPartialRecognition.setText(R.string.txt_ended);
     }
 
     public void comecarOuvir(){
@@ -121,7 +179,7 @@ public class MainActivity extends AppCompatActivity
                 getString(R.string.speech_length));
 
         Log.d(TAG, "Criação do SpeechRecognizer");
-        recognizer.startListening(recognizerIntent);
+        speechRecognizer.startListening(recognizerIntent);
     }
 
 /*
@@ -229,11 +287,11 @@ public class MainActivity extends AppCompatActivity
         Log.d("SPEECH", "onError: " + error);
 
         if(error == 9)
-            recognizer.cancel();
+            speechRecognizer.cancel();
         if(error == 7)
             Log.d("SPEECH", "Result Text final (onError): " + resultText);
 
-        recognizer.startListening(recognizerIntent);
+        speechRecognizer.startListening(recognizerIntent);
     }
 
 
@@ -242,7 +300,7 @@ public class MainActivity extends AppCompatActivity
     public void onResults(Bundle bundle) {
         Log.d("MainActivity", "onResults: ready ");
 
-        recognizer.startListening(recognizerIntent);
+        speechRecognizer.startListening(recognizerIntent);
         Log.d("SPEECH", "Result Text final: " + resultText);
         mTvPartialRecognition.append(resultText +" | ");
         ArrayList<String> textMatchlist = bundle.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);

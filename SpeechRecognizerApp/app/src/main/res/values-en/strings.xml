@@ -1,4 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">SpeechRecognizerApp</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="btStart">Start</string>
+    <string name="btPause">Pause</string>
+    <string name="btEnd">End</string>
+
+    <string name="speech_length">1</string>
+
+    <string name="txt_listening">"Listening: "</string>
+    <string name="txt_paused">Paused</string>
+    <string name="txt_recording">Recording...</string>
+    <string name="txt_new_recording">Starting a new record...</string>
+    <string name="txt_ended">Listening Ended</string>
 </resources>
