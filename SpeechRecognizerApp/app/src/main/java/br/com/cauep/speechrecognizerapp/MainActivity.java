@@ -26,6 +26,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity
         implements android.speech.RecognitionListener
@@ -104,9 +105,12 @@ public class MainActivity extends AppCompatActivity
         Log.d("SPEECH", "speech recognition available: " + SpeechRecognizer.isRecognitionAvailable(this));
         //Intent recognizerIntent = RecognizerIntent.getVoiceDetailsIntent(getApplicationContext());
         recognizerIntent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-        recognizerIntent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE, getClass().getPackage().getName());
-        recognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_WEB_SEARCH);
-        recognizerIntent.putExtra(RecognizerIntent.EXTRA_PARTIAL_RESULTS, true);
+        //recognizerIntent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE, getClass().getPackage().getName());
+        recognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);//LANGUAGE_MODEL_WEB_SEARCH);
+        recognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
+        recognizerIntent.putExtra(RecognizerIntent.EXTRA_PARTIAL_RESULTS, true);    // get partial results
+        recognizerIntent.putExtra(RecognizerIntent.EXTRA_MAX_RESULTS,
+                getString(R.string.speech_length));
 
         Log.d(TAG, "Criação do SpeechRecognizer");
         recognizer.startListening(recognizerIntent);
