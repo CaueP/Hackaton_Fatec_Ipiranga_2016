@@ -127,11 +127,11 @@ public class MainActivity extends AppCompatActivity
             deleteSpeechRecognizer();
             showToastMessage(getString(R.string.txt_paused));
             Log.d(TAG, "Listening Paused");
-            mTvPartialRecognition.setText(R.string.txt_paused);
+            //mTvPartialRecognition.setText(R.string.txt_paused);
             isPaused = true;
             isRecording = false;
         } else if(isPaused){ // se estiver pausado, volta a gravar
-            mTvPartialRecognition.setText(R.string.txt_listening);
+            //mTvPartialRecognition.setText(R.string.txt_listening);
             setSpeechRecognizer();
             speechRecognizer.startListening(recognizerIntent);
             showToastMessage(getString(R.string.txt_recording));
@@ -140,7 +140,7 @@ public class MainActivity extends AppCompatActivity
             isRecording = true;
         } else {    // Condição se não está gravando nem pausado, ou seja, uma nova gravação
             // Reinicia a string que armazenará a transcrição
-            mTvPartialRecognition.setText(R.string.txt_listening);
+            //mTvPartialRecognition.setText(R.string.txt_listening);
             setSpeechRecognizer();
             Log.d(TAG, "Listening started");
             speechRecognizer.startListening(recognizerIntent);
@@ -150,16 +150,12 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    public void pause(View view){
-
-    }
-
     public void end(View view){
         Log.d("end", "Stop recording requested");
         deleteSpeechRecognizer();
         isPaused = false;
         isRecording = false;
-        mTvPartialRecognition.setText(R.string.txt_ended);
+        //mTvPartialRecognition.setText(R.string.txt_ended);
         mTvPartialRecognition.append("\n" + transcriptionText);
     }
 
@@ -218,7 +214,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_voice_recognition, menu);
+        //getMenuInflater().inflate(R.menu.menu_voice_recognition, menu);
         return true;
     }
 
@@ -229,10 +225,6 @@ public class MainActivity extends AppCompatActivity
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
 
         return super.onOptionsItemSelected(item);
     }

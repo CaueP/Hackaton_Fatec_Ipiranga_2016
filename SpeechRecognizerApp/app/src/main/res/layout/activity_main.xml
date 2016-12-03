@@ -48,18 +48,6 @@
             style="?android:attr/buttonBarButtonStyle"
             />
 
-        <Button
-            android:id="@+id/btPause"
-            android:onClick="pause"
-            android:padding="@dimen/padding_medium"
-            android:text="@string/btPause"
-            tools:context=".VoiceRecognitionActivity"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="match_parent"
-            android:contentDescription="@string/contentBtPause"
-            style="?android:attr/buttonBarButtonStyle"
-            />
 
         <Button
             android:id="@+id/btEnd"
