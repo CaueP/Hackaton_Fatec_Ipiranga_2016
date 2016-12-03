@@ -12,7 +12,7 @@
     <string name="btPause">Pause</string>
     <string name="btEnd">End</string>
     <string name="tvTextMatches">Text Matches</string>
-    <string name="sNoOfMatches">No of Matches</string>
+    <string name="sNoOfMatches">No de Matches</string>
     <string name="etSearchHint">Speech hint here</string>
     <string name="speech_length">1</string>
     <string-array name="saNoOfMatches">

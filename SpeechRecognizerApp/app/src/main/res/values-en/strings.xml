@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">SpeechRecognizerApp</string>
+    <string name="app_name">Digital Senses</string>
+    <string name="contentBtEnd">Stop record button</string>
+    <string name="contentBtPause">Pause record button</string>
+    <string name="contentBtStart">Start record button</string>
+    <string name="contentTxtHeader">Recognized speech title</string>
+    <string name="sNoOfMatches">No of matches</string>
+    <string name="txtHeader">Recognized Speech</string>
 </resources>
