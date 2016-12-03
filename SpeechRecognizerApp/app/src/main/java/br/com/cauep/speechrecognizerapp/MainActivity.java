@@ -190,9 +190,6 @@ public class MainActivity extends AppCompatActivity
             File fileExt = new File(diretorioApp, nomeArquivo);
 
 
-
-
-
         try {
             //Cria o arquivo
             fileExt.getParentFile().mkdirs();
@@ -206,11 +203,11 @@ public class MainActivity extends AppCompatActivity
                     fosExt, "UTF-8"));
 
             out.write(transcriptionText.toString());  //Escreve no arquivo
-
+            Log.d("TAG","transcriptionText writing: " + transcriptionText.toString().getBytes());
 
             showToastMessage(getString(R.string.save_file_succeed));
             transcriptionText = new StringBuilder();
-            fosExt.close(); // fecha arquivo
+            out.close(); // fecha arquivo
         } catch (FileNotFoundException e) {
             showToastMessage(getString(R.string.save_file_failed));
             e.printStackTrace();
