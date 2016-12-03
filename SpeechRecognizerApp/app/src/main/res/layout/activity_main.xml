@@ -12,20 +12,31 @@
     tools:context="br.com.cauep.speechrecognizerapp.MainActivity">
 
     <Button
-        android:id="@+id/btSpeak"
-        android:onClick="speak"
+        android:id="@+id/btStart"
+        android:onClick="start"
         android:padding="@dimen/padding_medium"
-        android:text="@string/btSpeak"
+        android:text="@string/btStart"
         tools:context=".VoiceRecognitionActivity"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <Spinner
-        android:id="@+id/sNoOfMatches"
-        android:entries="@array/saNoOfMatches"
-        android:prompt="@string/sNoOfMatches"
+    <Button
+        android:id="@+id/btPause"
+        android:onClick="pause"
+        android:padding="@dimen/padding_medium"
+        android:text="@string/btPause"
+        tools:context=".VoiceRecognitionActivity"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"></Spinner>
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/btEnd"
+        android:onClick="end"
+        android:padding="@dimen/padding_medium"
+        android:text="@string/btEnd"
+        tools:context=".VoiceRecognitionActivity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
 
     <TextView
@@ -33,9 +44,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
         android:id="@+id/tvPartialRecognition"/>
-
-
-
 
 
 </LinearLayout>

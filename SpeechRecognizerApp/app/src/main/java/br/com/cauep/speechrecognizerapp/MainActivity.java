@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity
         //metTextHint = (EditText) findViewById(R.id.etTextHint);
         //mlvTextMatches = (ListView) findViewById(R.id.lvTextMatches);
         //msTextMatches = (Spinner) findViewById(R.id.sNoOfMatches);
-        mbtSpeak = (Button) findViewById(R.id.btSpeak);
+        mbtSpeak = (Button) findViewById(R.id.btStart);
         mTvPartialRecognition = (TextView) findViewById(R.id.tvPartialRecognition);
         CheckVoiceRecognition();
         mTvPartialRecognition.setText("Ouvindo: ");
@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    public void speak(View view){
+    public void start(View view){
         /*Intent recognizerIntent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         recognizerIntent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE,getClass().getPackage().getName());
         recognizerIntent.putExtra(RecognizerIntent.EXTRA_PROMPT,metTextHint.getText().toString());
@@ -98,6 +98,14 @@ public class MainActivity extends AppCompatActivity
         startActivityForResult(recognizerIntent,VOICE_RECOGNITION_REQUEST_CODE);*/
         mTvPartialRecognition.setText("Ouvindo: ");
         //startActivityForResult(recognizerIntent,VOICE_RECOGNITION_REQUEST_CODE);
+    }
+
+    public void pause(View view){
+
+    }
+
+    public void end(View view){
+
     }
 
     public void comecarOuvir(){
