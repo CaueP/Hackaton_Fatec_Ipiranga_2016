@@ -1,5 +1,6 @@
 <resources>
-    <string name="app_name">SpeechRecognizerApp</string>
+    <string name="app_name">Sentidos Digitais</string>
+    <string name="txtHeader">Fala Reconhecida</string>
 
     <string name="action_settings">Settings</string>
 
