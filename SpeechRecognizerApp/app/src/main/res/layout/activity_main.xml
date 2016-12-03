@@ -11,40 +11,70 @@
     android:id="@+id/activity_main"
     tools:context="br.com.cauep.speechrecognizerapp.MainActivity">
 
-    <Button
-        android:id="@+id/btStart"
-        android:onClick="start"
-        android:padding="@dimen/padding_medium"
-        android:text="@string/btStart"
-        tools:context=".VoiceRecognitionActivity"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <Button
-        android:id="@+id/btPause"
-        android:onClick="pause"
-        android:padding="@dimen/padding_medium"
-        android:text="@string/btPause"
-        tools:context=".VoiceRecognitionActivity"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <Button
-        android:id="@+id/btEnd"
-        android:onClick="end"
-        android:padding="@dimen/padding_medium"
-        android:text="@string/btEnd"
-        tools:context=".VoiceRecognitionActivity"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
-        android:id="@+id/tvPartialRecognition"/>
+        android:text="@string/txtHeader"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:contentDescription="@string/contentTxtHeader"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginTop="40dp"
+        android:id="@+id/tvPartialRecognition"
+        />
+    <LinearLayout
+        android:baselineAligned="true"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        style="?android:attr/buttonBarStyle"
+        android:orientation="horizontal">
 
+
+        <Button
+            android:id="@+id/btStart"
+            android:onClick="start"
+            android:padding="@dimen/padding_medium"
+            android:text="@string/btStart"
+            tools:context=".VoiceRecognitionActivity"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/contentBtStart"
+            style="?android:attr/buttonBarButtonStyle"
+            />
+
+        <Button
+            android:id="@+id/btPause"
+            android:onClick="pause"
+            android:padding="@dimen/padding_medium"
+            android:text="@string/btPause"
+            tools:context=".VoiceRecognitionActivity"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/contentBtPause"
+            style="?android:attr/buttonBarButtonStyle"
+            />
+
+        <Button
+            android:id="@+id/btEnd"
+            android:onClick="end"
+            android:padding="@dimen/padding_medium"
+            android:text="@string/btEnd"
+            tools:context=".VoiceRecognitionActivity"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/contentBtEnd"
+            style="?android:attr/buttonBarButtonStyle"
+            />
+
+    </LinearLayout>
 
 </LinearLayout>
 
