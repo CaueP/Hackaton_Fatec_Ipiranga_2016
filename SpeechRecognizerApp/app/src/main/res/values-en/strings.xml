@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Digital Senses</string>
+    <string name="btStart">Start/Pause</string>
+    <string name="btEnd">End</string>
+
+    <string name="speech_length">1</string>
+
+    <string name="contentBtEnd">Stop record button</string>
+    <string name="contentBtStart">Start record button</string>
+    <string name="contentTxtHeader">Recognized speech title</string>
+    <string name="txtHeader">Recognized Speech:</string>
+
+    <string name="txt_paused">Paused</string>
+    <string name="txt_recording">Listening...</string>
+    <string name="txt_new_recording">Starting a new record...</string>
+    <string name="txt_ended">Transcription done</string>
+</resources>

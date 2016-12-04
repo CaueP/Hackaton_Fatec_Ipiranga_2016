@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Sentidos Digitais</string>
+    <string name="txtHeader">Fala Reconhecida:</string>
+    <string name="btStart">Iniciar/Pausar</string>
+    <string name="contentTxtHeader">Titulo Fala Reconhecida</string>
+    <string name="contentBtStart">Botão para iniciar a gravação</string>
+    <string name="contentBtEnd">Botão para encerrar a gravação</string>
+    <string name="btEnd">Finalizar</string>
+
+    <string name="speech_length">1</string>
+
+    <string name="txt_paused">Pausado</string>
+    <string name="txt_recording">Ouvindo...</string>
+    <string name="txt_new_recording">Iniciando uma nova transcrição...</string>
+    <string name="txt_ended">Transcrição finalizada</string>
+    <string name="save_file_succeed">Arquivo salvo com sucesso</string>
+    <string name="save_file_failed">Falha ao criar arquivo</string>
+
+</resources>
