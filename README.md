@@ -4,7 +4,7 @@
 ## Sentidos Digitais
 Aplicativo para auxiliar pessoas com deficiência auditiva a transcrever qualquer fala para texto e exportar para um arquivo de texto, utilizando a biblioteca Speech-to-texto do Google.
 
-**Autores:** Cauê Polimanti (@github/CaueP), Juliana Aboud (@julianaaboud) e Mário Aprá (@derrix060)
+**Autores:** Cauê Polimanti (@CaueP), Juliana Aboud (@julianaaboud) e Mário Aprá (@derrix060)
 
 ![alt text][icon_1_1] 1º lugar
 
