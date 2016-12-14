@@ -2,7 +2,7 @@
 
 
 ## Sentidos Digitais
-Aplicativo para auxiliar pessoas com deficiência auditiva transcrevendo a fala para texto e exportando para um arquivo de texto, utilizando a biblioteca Speech-To-Text do Google.
+Aplicativo Android para auxiliar pessoas com deficiência auditiva, transcrevendo falas e exportando-as para um arquivo de texto, utilizando a biblioteca Speech-To-Text do Google.
 
 **Autores:** Cauê Polimanti (@CaueP), Juliana Aboud (@julianaaboud) e Mário Aprá (@derrix060)
 
